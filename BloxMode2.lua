@@ -1,10 +1,25 @@
--- ZEBIN HUB | Key System + ESP + Aimbot
+-- ZEBIN HUB | Key System + ESP + Aimbot + Anti-Kick
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local Camera = workspace.CurrentCamera
 local LocalPlayer = Players.LocalPlayer
+
+-- Anti-Kick Hook
+local mt = getrawmetatable(game)
+local oldNamecall = mt.__namecall
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(self, ...)
+    local args = {...}
+    local method = getnamecallmethod()
+    -- Block standard Kick/Teleport/Ban detection methods
+    if method == "FireServer" and (tostring(args[1]) == "Kick" or tostring(args[1]) == "Ban") then
+        return nil
+    end
+    return oldNamecall(self, ...)
+end)
+setreadonly(mt, true)
 
 -- GUI Setup
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
