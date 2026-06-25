@@ -1,4 +1,4 @@
--- ZEBIN HUB | Modular GUI + Toggle Key (M)
+-- ZEBIN HUB | Modular GUI + Toggle Key (M) + Close Button Fixed
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -23,8 +23,15 @@ local MainFrame = Instance.new("Frame", ScreenGui); MainFrame.Size = UDim2.new(0
 local Input = Instance.new("TextBox", ScreenGui); Input.Size = UDim2.new(0, 200, 0, 50); Input.Position = UDim2.new(0.5, -100, 0.5, -25); Input.PlaceholderText = "Введите ключ"
 local CheckBtn = Instance.new("TextButton", ScreenGui); CheckBtn.Size = UDim2.new(0, 200, 0, 50); CheckBtn.Position = UDim2.new(0.5, -100, 0.5, 35); CheckBtn.Text = "Войти"
 
--- Close Button (X)
-local CloseBtn = Instance.new("TextButton", MainFrame); CloseBtn.Size = UDim2.new(0, 30, 0, 30); CloseBtn.Position = UDim2.new(1, -35, 0, 5); CloseBtn.Text = "X"; CloseBtn.BackgroundColor3 = Color3.fromRGB(200,0,0)
+-- Close Button (X) - Explicitly created and parented
+local CloseBtn = Instance.new("TextButton", MainFrame)
+CloseBtn.Name = "CloseButton"
+CloseBtn.Size = UDim2.new(0, 30, 0, 30)
+CloseBtn.Position = UDim2.new(1, -35, 0, 5)
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.new(1, 1, 1)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+CloseBtn.ZIndex = 2
 CloseBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false end)
 
 -- Toggle Key (M)
@@ -69,3 +76,4 @@ RunService.RenderStepped:Connect(function()
         if closest then Camera.CFrame = CFrame.new(Camera.CFrame.Position, closest.Position) end
     end
 end)
+
